@@ -1,5 +1,6 @@
 #include <iostream>
 #include <functional>
+#include <array>
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -53,6 +54,18 @@ static void processInput(GLFWwindow* window)
 
 }
 
+static std::array<std::array<float, 4>, 4> getPerspectiveMatrix(float fov, float aspect, float zNear, float zFar)
+{
+	float tanHalfFovy = std::tan(fov/static_cast<float>(2));
+	std::array<std::array<float, 4>, 4> ret{0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,0.0f, 0.0f, 0.0f, 0.0f,0.0f, 0.0f, 0.0f, 0.0f};
+	ret[0][0] = static_cast<float>(1) / (aspect * tanHalfFovy);
+	ret[1][1] = static_cast<float>(1) / (tanHalfFovy);
+	ret[2][2] = (zFar + zNear) / (zNear - zFar);
+	ret[2][3] = -static_cast<float>(1);
+	ret[3][2] = -(static_cast<float>(2) * zFar * zNear) / (zFar - zNear);
+	return ret;
+}
+
 int main()
 {
 	std::cout << "hello opengl!" << std::endl;
@@ -96,6 +109,7 @@ int main()
         return -1;
     }
 	glEnable(GL_DEPTH_TEST);
+	// glDepthFunc(GL_ALWAYS);
 
 	glViewport(0, 0, 800, 600);	
 
@@ -280,6 +294,7 @@ int main()
 
         // view/projection transformations
         glm::mat4 projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
+        // auto projection = getPerspectiveMatrix(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
         glm::mat4 view = camera.GetViewMatrix();
         ourShader.SetMat4("projection", projection);
         ourShader.SetMat4("view", view);
