@@ -30,7 +30,8 @@ private:
     glm::vec3 m_Right;
     glm::vec3 m_WorldUp; // 世界坐标系的上方
 
-    float m_Yaw, m_Pitch;
+    float m_Yaw;         // 绕y轴旋转的角度
+    float m_Pitch;       // 绕x轴旋转的角度
 
     float m_MouseSensitivity = 0.05f;
 

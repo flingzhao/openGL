@@ -13,13 +13,11 @@
 #include "Camera.h"
 #include "Model.h"
 
-#include "stb_image.h"
+inline float lastX = 0.0f;
+inline float lastY = 0.0f;
+inline bool firstMouse = true;
 
-
-
-bool firstMouse = true;
-float lastX, lastY;
-Camera camera(glm::vec3(0.0f, 0.0f, 3.0f), glm::vec3(0.0f, 1.0f, 0.0f), -90.0f, 0.0f);
+inline Camera camera(glm::vec3(0.0f, 0.0f, 3.0f), glm::vec3(0.0f, 1.0f, 0.0f), -90.0f, 0.0f);
 
 static void mouse_callback(GLFWwindow* window, double xpos, double ypos)
 {
