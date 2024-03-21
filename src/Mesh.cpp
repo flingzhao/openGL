@@ -44,6 +44,7 @@ void Mesh::Draw(Shader& shader)
         // always good practice to set everything back to defaults once configured.
         glActiveTexture(GL_TEXTURE0);
 }
+/*郭大路也不生气，悠然道：“好，我又穷，又饿，又厚脸皮，你们都是君子。”*/
 
 void Mesh::setupMesh()
 {

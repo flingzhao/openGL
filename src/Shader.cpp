@@ -1,4 +1,5 @@
 #include "Shader.h"
+#include <array>
 
 static GLenum ShaderTypeFromString(const std::string& type)
 {
@@ -102,4 +103,7 @@ void Shader::SetMat4(const std::string& parametername, const glm::mat4& mat)
 {
     glUniformMatrix4fv(glGetUniformLocation(m_RenderID, parametername.c_str()), 1, GL_FALSE, &mat[0][0]);
 }
-
+void Shader::SetMat4(const std::string& parametername, const std::array<std::array<float, 4>, 4>& mat)
+{
+    glUniformMatrix4fv(glGetUniformLocation(m_RenderID, parametername.c_str()), 1, GL_FALSE, &mat[0][0]);
+}

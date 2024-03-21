@@ -113,7 +113,7 @@ int main()
 
 	glViewport(0, 0, 800, 600);	
 
-	// Shader Lightshader(std::string("../Assets/shaders/LightShader.glsl")), Objshader(std::string("../Assets/shaders/ObjectShader.glsl"));
+	// Shader Lightshader(std::string("../../../Assets/shaders/LightShader.glsl")), Objshader(std::string("../../../Assets/shaders/ObjectShader.glsl"));
 	// Lightshader.Use();
 
 	// glm::mat4 view = camera.GetViewMatrix();
@@ -127,8 +127,6 @@ int main()
 	// Objshader.SetUniform3f("objectColor", objectColor);
 	// glm::vec3 lightPos(0.0f, 10.0f, 0.0f);
 	// Objshader.SetUniform3f("lightPos", lightPos);
-
-
 
 	// Objshader.SetMat4("ViewMat", view);
 	// Objshader.SetUniform3f("ViewPos", camera.GetCameraPosition());
@@ -188,7 +186,7 @@ int main()
     // -0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 0.0f,
     // -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 1.0f
     // };
-    // world space positions of our cubes
+    // // world space positions of our cubes
 
 
 	// unsigned int indices[] = {  
@@ -205,15 +203,12 @@ int main()
 	// glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	// glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-	//bind EBO after binding VBO
+	// // bind EBO after binding VBO
 	// unsigned int EBO;
 	// glGenBuffers(1, &EBO);
 	// glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
     // glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
-
-	// glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
-	// glEnableVertexAttribArray(0);
 
 
 	// glGenVertexArrays(1, &ObjVAO);
@@ -225,6 +220,9 @@ int main()
 	// glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
 	// glEnableVertexAttribArray(2);
 	
+	// glBindVertexArray(LightVAO);
+	// glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
+	// glEnableVertexAttribArray(0);
 
 	// /* texture */
 	// unsigned int texture1, texture2;
@@ -238,7 +236,7 @@ int main()
 
 	// stbi_set_flip_vertically_on_load(true);
 	// int width, height, nrChannels;
-	// unsigned char *data = stbi_load("../Assets/textures/container2.png", &width, &height, &nrChannels, 0);
+	// unsigned char *data = stbi_load("../../../Assets/textures/container2.png", &width, &height, &nrChannels, 0);
 	// if (data)
 	// {
 	// 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
@@ -254,7 +252,7 @@ int main()
 	// glGenTextures(1, &texture2);
 	// glBindTexture(GL_TEXTURE_2D, texture2);
 
-	// data = stbi_load("../Assets/textures/container2_specular.png", &width, &height, &nrChannels, 0);
+	// data = stbi_load("../../../Assets/textures/container2_specular.png", &width, &height, &nrChannels, 0);
 	// if (data)
 	// {
 	// 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
@@ -270,14 +268,16 @@ int main()
 	// Objshader.Use();
 	// Objshader.SetUniform1I("material.diffuse", 0);
 	// Objshader.SetUniform1I("material.specular", 1);
+#pragma region sixiwanzi
 
-	Shader ourShader(std::string("../Assets/shaders/modelShader.glsl"));
-	// Model ourModel(std::string("../Assets/models/nanosuit/nanosuit.obj"));
-	Model LianModel(std::string("../Assets/models/lian/Lian.pmx"));
-	// Model TiandouModel(std::string("../Assets/models/tiandou/Tiandou.pmx"));
-	Model MumuModel(std::string("../Assets/models/mumu/Mumu.pmx"));
-	// Model YouyiModel(std::string("../Assets/models/youyi/Youyi.pmx"));
+	Shader ourShader(std::string("../../../Assets/shaders/modelShader.glsl"));
+	// Model ourModel(std::string("../../../Assets/models/nanosuit/nanosuit.obj"));
+	Model LianModel(std::string("../../../Assets/models/lian/Lian.pmx"));
+	// Model TiandouModel(std::string("../../../Assets/models/tiandou/Tiandou.pmx"));
+	Model MumuModel(std::string("../../../Assets/models/mumu/Mumu.pmx"));
+	// Model YouyiModel(std::string("../../../Assets/models/youyi/Youyi.pmx"));
 
+#pragma endregion
 	double initT = glfwGetTime();
 
 
@@ -290,6 +290,8 @@ int main()
 		processInput(window);
 
 		// don't forget to enable shader before setting uniforms
+
+#pragma region sixiwanzi
         ourShader.Use();
 
         // view/projection transformations
@@ -317,12 +319,11 @@ int main()
         // ourShader.SetMat4("model", model);
         // YouyiModel.Draw(ourShader);
 
-
+#pragma endregion
 
 		// Lightshader.Use();
 
 		// view = camera.GetViewMatrix();
-
 
 		// Objshader.Use();
 		// Objshader.SetMat4("ViewMat", view);
@@ -338,7 +339,7 @@ int main()
 		// glActiveTexture(GL_TEXTURE1);
 		// glBindTexture(GL_TEXTURE_2D, texture2);
 
-		// glBindVertexArray(ObjVAO);
+		// // glBindVertexArray(ObjVAO);
 
 		// glDrawArrays(GL_TRIANGLES, 0, 36);
 
@@ -350,8 +351,6 @@ int main()
 		// model = glm::scale(model, glm::vec3(0.2f));
 		// Lightshader.SetMat4("ModelMat", model);
 		// glDrawArrays(GL_TRIANGLES, 0, 36);
-
-
 
 	    glfwSwapBuffers(window);
 	    glfwPollEvents();      
