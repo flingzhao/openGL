@@ -15,7 +15,9 @@ set(CHAPTERS
 set(basic basic)
 
 set(advanced_opengl 
-    stencil_testing)
+    stencil_testing
+    blend
+    )
 file(GLOB DLLS "Lib/*")
 
 link_directories(${CMAKE_SOURCE_DIR}/Lib)
