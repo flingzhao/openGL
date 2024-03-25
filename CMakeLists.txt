@@ -17,6 +17,7 @@ set(basic basic)
 set(advanced_opengl 
     stencil_testing
     blend
+    face_culling
     )
 file(GLOB DLLS "Lib/*")
 
