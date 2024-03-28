@@ -132,8 +132,8 @@ int main()
     glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));    
     glBindVertexArray(0);
 
-    unsigned int cubeTexture = loadTextrue("../../../Assets/textures/marble.jpg");
-    unsigned int floorTexture = loadTextrue("../../../Assets/textures/metal.png");
+    unsigned int cubeTexture = loadTexture("../../../Assets/textures/marble.jpg");
+    unsigned int floorTexture = loadTexture("../../../Assets/textures/metal.png");
 
     shader.Use();
     shader.SetInt("texture1", 0);
@@ -392,7 +392,7 @@ int main()
 	// // Objshader.SetUniform1I("material.diffuse", 0);
 	// // Objshader.SetUniform1I("material.specular", 1);
 
-    // auto textureID = loadTextrue("../../../Assets/textures/container2.png");
+    // auto textureID = loadTexture("../../../Assets/textures/container2.png");
     // while(!glfwWindowShouldClose(window)) {
         
 

@@ -135,9 +135,9 @@ int main()
     glBindVertexArray(0);
 
 
-    unsigned int cubeTexture = loadTextrue("../../../Assets/textures/marble.jpg");
-    unsigned int floorTexture = loadTextrue("../../../Assets/textures/metal.png");
-    unsigned int transparentTexture = loadTextrue("../../../Assets/textures/grass.png");
+    unsigned int cubeTexture = loadTexture("../../../Assets/textures/marble.jpg");
+    unsigned int floorTexture = loadTexture("../../../Assets/textures/metal.png");
+    unsigned int transparentTexture = loadTexture("../../../Assets/textures/grass.png");
 
     // transparent vegetation locations
     // --------------------------------

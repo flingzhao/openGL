@@ -45,8 +45,10 @@ void processInput(GLFWwindow *window)
         camera.GetCameraPosition() += glm::normalize(glm::cross(camera.GetCameraFront(), camera.GetCameraUp())) * cameraSpeed;
 	if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS)
         camera.GetCameraPosition().y += 1.0f * cameraSpeed;
+    if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS)
+        camera.GetCameraPosition().y -= 1.0f * cameraSpeed;
 }
-unsigned int loadTextrue(std::string_view path)
+unsigned int loadTexture(std::string_view path)
 {
     unsigned int textureID;
     glGenTextures(1, &textureID);

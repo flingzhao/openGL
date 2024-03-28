@@ -18,6 +18,8 @@ set(advanced_opengl
     stencil_testing
     blend
     face_culling
+    framebuffer
+    rear_view_mirror
     )
 file(GLOB DLLS "Lib/*")
 

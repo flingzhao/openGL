@@ -154,9 +154,9 @@ int main()
     glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
     glBindVertexArray(0);
 
-    unsigned int cubeTexture = loadTextrue("../../../Assets/textures/marble.jpg");
-    unsigned int floorTexture = loadTextrue("../../../Assets/textures/metal.png");
-    unsigned int transparentTexture = loadTextrue("../../../Assets/textures/grass.png");
+    unsigned int cubeTexture = loadTexture("../../../Assets/textures/marble.jpg");
+    unsigned int floorTexture = loadTexture("../../../Assets/textures/metal.png");
+    unsigned int transparentTexture = loadTexture("../../../Assets/textures/grass.png");
 
     // transparent vegetation locations
     // --------------------------------

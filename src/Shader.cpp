@@ -5,7 +5,7 @@ static GLenum ShaderTypeFromString(const std::string& type)
 {
     if (type == "vertex")
         return GL_VERTEX_SHADER;
-    if (type == "fragment")
+    else if (type == "fragment")
         return GL_FRAGMENT_SHADER;
     std::cout << "unknown shader type" << std::endl;
     return 0;

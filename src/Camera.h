@@ -21,8 +21,13 @@ public:
     glm::vec3& GetCameraPosition() {return m_Position;}
     glm::vec3& GetCameraFront() {return m_Front;}
     glm::vec3& GetCameraUp() {return m_Up;}
+    float& GetCameraYaw() { return m_Yaw; }
 
-
+    void setCameraYaw(float val)
+    {
+        m_Yaw = val;
+        UpdateCameraVectors();
+    }
 private:
     glm::vec3 m_Position;
     glm::vec3 m_Front;
@@ -36,8 +41,7 @@ private:
     float m_MouseSensitivity = 0.05f;
 
 private:
-    void UpdateCameraVectors();
-    
+    void UpdateCameraVectors();    
 };
 
 #endif /*__CAMERA_H__*/
