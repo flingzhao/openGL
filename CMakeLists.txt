@@ -20,6 +20,8 @@ set(advanced_opengl
     face_culling
     framebuffer
     rear_view_mirror
+    skybox
+    skybox_env_mapping
     )
 file(GLOB DLLS "Lib/*")
 

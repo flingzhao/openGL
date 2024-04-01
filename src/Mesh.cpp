@@ -15,6 +15,8 @@ void Mesh::Draw(Shader& shader)
         unsigned int specularNr = 1;
         unsigned int normalNr   = 1;
         unsigned int heightNr   = 1;
+        unsigned int reflectionNr   = 1;
+        // std::cout << "size: " << m_Textures.size() << '\n';
         for(unsigned int i = 0; i < m_Textures.size(); i++)
         {
             glActiveTexture(GL_TEXTURE0 + i); // active proper texture unit before binding
@@ -30,10 +32,13 @@ void Mesh::Draw(Shader& shader)
             else if(name == "texture_height")
                 number = std::to_string(heightNr++); // transfer unsigned int to string
 
+
             // now set the sampler to the correct texture unit
             glUniform1i(glGetUniformLocation(shader.GetRenderID(), (name + number).c_str()), i);
             // and finally bind the texture
             glBindTexture(GL_TEXTURE_2D, m_Textures[i].id);
+            // std::cout << m_Textures[i].id << '\n';
+            // std::cout << name  + number << '\n';
         }
         
         // draw mesh

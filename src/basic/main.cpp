@@ -123,6 +123,7 @@ int main()
 	Model MumuModel(std::string("../../../Assets/models/mumu/Mumu.pmx"));
 	// Model YouyiModel(std::string("../../../Assets/models/youyi/Youyi.pmx"));
 
+    Model nano(std::string("../../../Assets/models/nanosuit_reflection/nanosuit.obj"));
 #pragma endregion
 	double initT = glfwGetTime();
 
@@ -137,7 +138,6 @@ int main()
 
 		// don't forget to enable shader before setting uniforms
 
-#pragma region sixiwanzi
         ourShader.Use();
 
         // view/projection transformations
@@ -146,53 +146,55 @@ int main()
         glm::mat4 view = camera.GetViewMatrix();
         ourShader.SetMat4("projection", projection);
         ourShader.SetMat4("view", view);
-
         // render the loaded model
         glm::mat4 model = glm::mat4(1.0f);
         model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f)); // translate it down so it's at the center of the scene
         model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));	// it's a bit too big for our scene, so scale it down
         ourShader.SetMat4("model", model);
+#pragma region sixiwanzi
+
 		
-		glStencilFunc(GL_ALWAYS, 1, 0xFF);
-		glStencilMask(0xFF);
+		// // glstencilfunc(gl_always, 1, 0xff);
+		// // glstencilmask(0xff);
 
-        LianModel.Draw(ourShader);
+        // // lianmodel.draw(ourshader);
 
-		model = glm::translate(model, glm::vec3(10.0f, 0.0f, 0.0f));
-        ourShader.SetMat4("model", model);
-        MumuModel.Draw(ourShader);
+		// // model = glm::translate(model, glm::vec3(10.0f, 0.0f, 0.0f));
+        // // ourshader.setmat4("model", model);
+        // // mumumodel.draw(ourshader);
 
-		// model = glm::translate(model, glm::vec3(2.0f, 0.0f, 0.0f));
-        // ourShader.SetMat4("model", model);
-        // TiandouModel.Draw(ourShader);
+		// // model = glm::translate(model, glm::vec3(2.0f, 0.0f, 0.0f));
+        // // ourShader.SetMat4("model", model);
+        // // TiandouModel.Draw(ourShader);
 
-        // ourShader.SetMat4("model", model);
-        // YouyiModel.Draw(ourShader);
+        // // ourShader.SetMat4("model", model);
+        // // YouyiModel.Draw(ourShader);
 
-		// draw outline
-		shaderSingleColor.Use();
-		model = glm::mat4(1.0f);
-		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(0.103f, 0.103f, 0.103f));
-		shaderSingleColor.SetMat4("model", model);
-		shaderSingleColor.SetMat4("projection", projection);
-		shaderSingleColor.SetMat4("view", view);
-		glStencilFunc(GL_NOTEQUAL, 1, 0xFF);
-		glStencilMask(0x00);
-		glDisable(GL_DEPTH_TEST);
-
+		// // draw outline
 		// shaderSingleColor.Use();
-		// LianModel.Draw(shaderSingleColor);
-		LianModel.Draw(shaderSingleColor);
+		// model = glm::mat4(1.0f);
+		// model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
+		// model = glm::scale(model, glm::vec3(0.103f, 0.103f, 0.103f));
+		// shaderSingleColor.SetMat4("model", model);
+		// shaderSingleColor.SetMat4("projection", projection);
+		// shaderSingleColor.SetMat4("view", view);
+		// glStencilFunc(GL_NOTEQUAL, 1, 0xFF);
+		// glStencilMask(0x00);
+		// glDisable(GL_DEPTH_TEST);
 
-		glBindVertexArray(0);
-		glStencilMask(0xFF);
-		glStencilFunc(GL_ALWAYS, 0, 0xFF);
-		glEnable(GL_DEPTH_TEST);
+		// // shaderSingleColor.Use();
+		// // LianModel.Draw(shaderSingleColor);
+		// LianModel.Draw(shaderSingleColor);
+
+		// glBindVertexArray(0);
+		// glStencilMask(0xFF);
+		// glStencilFunc(GL_ALWAYS, 0, 0xFF);
+		// glEnable(GL_DEPTH_TEST);
 
 #pragma endregion
 
 
+		nano.Draw(ourShader);
 	    glfwSwapBuffers(window);
 	    glfwPollEvents();      
 	}	

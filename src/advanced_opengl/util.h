@@ -6,6 +6,8 @@
 
 #include <string_view>
 #include <iostream>
+#include <vector>
+#include <string>
 
 #include "Camera.h"
 
@@ -22,4 +24,5 @@ void mouse_callback(GLFWwindow *window, double xposIn, double yposIn);
 void scroll_callback(GLFWwindow *window, double xoffset, double yoffset);
 void processInput(GLFWwindow *window);
 unsigned int loadTexture(std::string_view path);
+unsigned int loadCubeMap(const std::vector<std::string>& faces);
 #endif /* __UTILITY_H__ */
