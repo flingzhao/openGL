@@ -7,6 +7,8 @@ static GLenum ShaderTypeFromString(const std::string& type)
         return GL_VERTEX_SHADER;
     else if (type == "fragment")
         return GL_FRAGMENT_SHADER;
+    else if(type == "geometry")
+        return GL_GEOMETRY_SHADER;
     std::cout << "unknown shader type" << std::endl;
     return 0;
 }
@@ -51,7 +53,6 @@ static std::unordered_map<GLenum, std::string> PreProcess(const std::string& sou
                                         (nextLinePos == std::string::npos ? source.size() - 1 : nextLinePos));
 
     }
-
     return shaderSources;
 }
 
@@ -84,7 +85,7 @@ Shader::Shader(const std::string& filepath)
         }
 
         glAttachShader(shaderProgram, shader);
-
+        // std::cout << shaderProgram << '\n';
         glDeleteShader(shader);
     }
 
