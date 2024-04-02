@@ -12,7 +12,8 @@ set(CHAPTERS
     basic
     advanced_opengl)
 
-set(basic basic)
+set(basic basic
+          model_explode)
 
 set(advanced_opengl 
     stencil_testing
@@ -25,6 +26,7 @@ set(advanced_opengl
     gl_pointsize
     gl_frontfacing
     uniform_buffer_obj
+    geometry_shader_houses
     )
 file(GLOB DLLS "Lib/*")
 
