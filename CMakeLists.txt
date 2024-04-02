@@ -23,6 +23,7 @@ set(advanced_opengl
     skybox
     skybox_env_mapping
     gl_pointsize
+    gl_frontfacing
     )
 file(GLOB DLLS "Lib/*")
 
