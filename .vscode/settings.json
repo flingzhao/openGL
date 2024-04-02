@@ -61,6 +61,7 @@
         "set": "cpp",
         "mutex": "cpp",
         "thread": "cpp",
-        "variant": "cpp"
+        "variant": "cpp",
+        "khrplatform.h": "c"
     }
 }

@@ -22,6 +22,7 @@ set(advanced_opengl
     rear_view_mirror
     skybox
     skybox_env_mapping
+    gl_pointsize
     )
 file(GLOB DLLS "Lib/*")
 
