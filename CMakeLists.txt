@@ -13,7 +13,9 @@ set(CHAPTERS
     advanced_opengl)
 
 set(basic basic
-          model_explode)
+          model_explode
+          normal_vector
+          )
 
 set(advanced_opengl 
     stencil_testing
