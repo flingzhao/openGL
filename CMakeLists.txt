@@ -30,6 +30,7 @@ set(advanced_opengl
     uniform_buffer_obj
     geometry_shader_houses
     instancing_quad
+    asteroid
     )
 file(GLOB DLLS "Lib/*")
 
