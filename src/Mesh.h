@@ -39,6 +39,7 @@ public:
 
     Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> texture);
     void Draw(Shader& shader);
+    unsigned int getVAO() { return VAO; }
 
 private:
     unsigned int VAO, VBO, EBO;

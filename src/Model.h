@@ -15,11 +15,14 @@ class Model
         {
             loadModel(path);
         }
+        std::vector<Mesh>& getMesh() { return m_Meshes; }
+        const std::vector<Texture>& getTextureLoaded() { return m_TextureLoaded; }
         void Draw(Shader shader);   
     private:
         /*  模型数据  */
         std::vector<Mesh> m_Meshes;
         std::string m_Directory;
+        std::vector<Texture> m_TextureLoaded;
         /*  函数   */
         void loadModel(const std::string& path);
         void processNode(aiNode *node, const aiScene *scene);
