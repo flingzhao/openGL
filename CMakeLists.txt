@@ -10,7 +10,9 @@ set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/modules/")
 
 set(CHAPTERS 
     basic
-    advanced_opengl)
+    advanced_opengl
+    advanced_lighting
+    )
 
 set(basic basic
           model_explode
@@ -33,6 +35,11 @@ set(advanced_opengl
     asteroid
     asteroid_instanced
     msaa
+    msaa_offscreen
+    )
+
+set(advanced_lighting
+    advanced_lighting
     )
 file(GLOB DLLS "Lib/*")
 

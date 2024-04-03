@@ -11,7 +11,7 @@
 #include "Shader.h"
 #include "Camera.h"
 #include "Model.h"
-#include "../util.h"
+#include "util.h"
 Camera mycamera(glm::vec3(0.0f, 0.0f, 55.0f), glm::vec3(0.0f, 1.0f, 0.0f), -90.0f, 0.0f);
 
 void my_mouse_callback(GLFWwindow *window, double xposIn, double yposIn)

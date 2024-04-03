@@ -9,7 +9,7 @@
 
 #include "Shader.h"
 #include "Camera.h"
-#include "../util.h"
+#include "util.h"
 
 int main()
 {
@@ -110,16 +110,7 @@ int main()
         -5.0f, -0.5f, -5.0f,  0.0f, 2.0f,
          5.0f, -0.5f, -5.0f,  2.0f, 2.0f
     };
-    // float quadVertices[] = { // vertex attributes for a quad that fills the entire screen in Normalized Device Coordinates.
-    //     // positions   // texCoords
-    //     -1.0f,  1.0f,  0.0f, 1.0f,
-    //     -1.0f, -1.0f,  0.0f, 0.0f,
-    //      1.0f, -1.0f,  1.0f, 0.0f,
 
-    //     -1.0f,  1.0f,  0.0f, 1.0f,
-    //      1.0f, -1.0f,  1.0f, 0.0f,
-    //      1.0f,  1.0f,  1.0f, 1.0f
-    // };
     float quadVertices[] = { // vertex attributes for a quad that fills the entire screen in Normalized Device Coordinates. NOTE that this plane is now much smaller and at the top of the screen
         // positions   // texCoords
         -0.3f,  1.0f,  0.0f, 1.0f,

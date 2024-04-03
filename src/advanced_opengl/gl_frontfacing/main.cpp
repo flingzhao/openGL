@@ -9,7 +9,7 @@
 
 #include "Shader.h"
 #include "Camera.h"
-#include "../util.h"
+#include "util.h"
 
 int main()
 {
