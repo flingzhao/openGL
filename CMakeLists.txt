@@ -32,6 +32,7 @@ set(advanced_opengl
     instancing_quad
     asteroid
     asteroid_instanced
+    msaa
     )
 file(GLOB DLLS "Lib/*")
 
