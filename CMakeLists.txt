@@ -31,6 +31,7 @@ set(advanced_opengl
     geometry_shader_houses
     instancing_quad
     asteroid
+    asteroid_instanced
     )
 file(GLOB DLLS "Lib/*")
 
