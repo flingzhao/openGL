@@ -29,6 +29,7 @@ set(advanced_opengl
     gl_frontfacing
     uniform_buffer_obj
     geometry_shader_houses
+    instancing_quad
     )
 file(GLOB DLLS "Lib/*")
 

@@ -86,7 +86,6 @@ int main()
     glfwSetFramebufferSizeCallback(window, [](GLFWwindow* window, int width, int height)
 	{glViewport(0, 0, width, height);});
 	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-	// glfwSetCursorPosCallback(window, mouse_callback);
 
 	glfwSetCursorPosCallback(window, [](GLFWwindow* window, double xpos, double ypos)
 	{

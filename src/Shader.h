@@ -25,6 +25,7 @@ public:
     inline void SetFloat(const std::string& parametername, const float value) { glUniform1f(glGetUniformLocation(m_RenderID, parametername.c_str()), value); };
     inline void SetVec3(const std::string& parametername, float x, float y, float z) { glUniform3f(glGetUniformLocation(m_RenderID, parametername.c_str()), x, y, z); };
     inline void SetVec3(const std::string& parametername, glm::vec3& v3) { glUniform3f(glGetUniformLocation(m_RenderID, parametername.c_str()), v3.x, v3.y, v3.z); };
+    inline void SetVec2(const std::string& parametername, glm::vec2& v2) { glUniform2f(glGetUniformLocation(m_RenderID, parametername.c_str()), v2.x, v2.y); };
     void SetMat4(const std::string& parametername, const glm::mat4& mat);
     void SetMat4(const std::string& parametername, const std::array<std::array<float, 4>, 4>& mat);
     void SetInt(std::string_view, const int);
