@@ -23,6 +23,6 @@ void framebuffer_size_callback(GLFWwindow *window, int width, int height);
 void mouse_callback(GLFWwindow *window, double xposIn, double yposIn);
 void scroll_callback(GLFWwindow *window, double xoffset, double yoffset);
 void processInput(GLFWwindow *window);
-unsigned int loadTexture(std::string_view path);
+unsigned int loadTexture(std::string_view path, bool gammaCorrection = false);
 unsigned int loadCubeMap(const std::vector<std::string>& faces);
 #endif /* __UTILITY_H__ */
