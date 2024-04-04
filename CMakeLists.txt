@@ -40,6 +40,7 @@ set(advanced_opengl
 
 set(advanced_lighting
     advanced_lighting
+    gamma_correction
     )
 file(GLOB DLLS "Lib/*")
 
