@@ -42,6 +42,7 @@ set(advanced_lighting
     advanced_lighting
     gamma_correction
     shadow_mapping_depth
+    shadow_mapping_base
     )
 file(GLOB DLLS "Lib/*")
 
