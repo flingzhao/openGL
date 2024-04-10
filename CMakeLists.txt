@@ -45,7 +45,7 @@ set(advanced_lighting
     shadow_mapping_base
     point_shadow
     normal_mapping
-    5.1.1.parallex_mapping
+    5.1.parallex_mapping
     )
 file(GLOB DLLS "Lib/*")
 

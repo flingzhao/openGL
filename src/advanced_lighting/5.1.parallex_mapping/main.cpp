@@ -84,7 +84,7 @@ int main()
     }
 
     glEnable(GL_DEPTH_TEST);
-    Shader shader("../../../Assets/shaders/5.1.1.parallex_mapping.glsl");
+    Shader shader("../../../Assets/shaders/5.1.parallex_mapping.glsl");
 
     unsigned int diffuseMap = myloadTexture("../../../Assets/textures/bricks2.jpg");
     unsigned int normalMap = myloadTexture("../../../Assets/textures/bricks2_normal.jpg");
