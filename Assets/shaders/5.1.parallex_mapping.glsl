@@ -69,8 +69,8 @@ void main()
     vec2 texCoords = fs_in.TexCoords;
     
     texCoords = ParallaxMapping(fs_in.TexCoords,  viewDir);       
-    // if(texCoords.x > 1.0 || texCoords.y > 1.0 || texCoords.x < 0.0 || texCoords.y < 0.0)
-    //     discard;
+    if(texCoords.x > 1.0 || texCoords.y > 1.0 || texCoords.x < 0.0 || texCoords.y < 0.0)
+        discard;
 
     // obtain normal from normal map
     vec3 normal = texture(normalMap, texCoords).rgb;
