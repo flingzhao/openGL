@@ -12,6 +12,9 @@ set(ASSIMP_LIB
     basic
     model_explode
     model_normal_vector
+    skybox_env_mapping
+    asteroid
+    asteroid_instanced
     )
 
 set(CHAPTERS 
@@ -54,6 +57,7 @@ set(advanced_lighting
     5.1.parallex_mapping
     5.2.parallex_mapping
     5.3.parallex_mapping
+    hdr
     )
 file(GLOB DLLS "Lib/*")
 
@@ -67,23 +71,32 @@ include_directories("./vendor/include/glm")
 include_directories("./src")
 
 function(create_project_from_src chapter demo)
-    if (demo STREQUAL "")
-        set(NAME ${chapter})
-        set(CMAKE_RUNTIME_OUTPUT_DIRECTORYOUTPUT_DIR "${CMAKE_SOURCE_DIR}/bin/${chapter}")
+    list(FIND ASSIMP_LIB ${demo} target_index)
+    if(target_index GREATER -1)
+        set(NAME "${chapter}__${demo}")
+        set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin/${chapter}/${demo}")
         file(GLOB SOURCE
-        "src/*,h"
-        "src/*.cpp"
-        "src/*.c"
+        "src/Shader.cpp"
+        "src/Camera.cpp"
+        "src/util.cpp"
+        "src/stb_image.cpp"
+        "src/Model.cpp"
+        "src/Mesh.cpp"
+        "src/glad.c"
         "src/${chapter}/*.h"
         "src/${chapter}/*.cpp"
+        "src/${chapter}/${demo}/*.h"
+        "src/${chapter}/${demo}/*.cpp"
         ) 
 	else()
         set(NAME "${chapter}__${demo}")
         set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin/${chapter}/${demo}")
         file(GLOB SOURCE
-        "src/*,h"
-        "src/*.cpp"
-        "src/*.c"
+        "src/Shader.cpp"
+        "src/Camera.cpp"
+        "src/util.cpp"
+        "src/stb_image.cpp"
+        "src/glad.c"
         "src/${chapter}/*.h"
         "src/${chapter}/*.cpp"
         "src/${chapter}/${demo}/*.h"
@@ -91,7 +104,6 @@ function(create_project_from_src chapter demo)
         ) 
     endif()
         
-    list(FIND ASSIMP_LIB ${demo} target_index)
     if(target_index GREATER -1)
         message("${demo} 需要assimp library")
         file(COPY ${DLLS} DESTINATION "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/")
@@ -100,8 +112,13 @@ function(create_project_from_src chapter demo)
     target_link_libraries(${NAME} PUBLIC
             glfw3
             openGL32
-            assimp
             )  
+    if(target_index GREATER -1)
+        target_link_libraries(${NAME} PUBLIC
+            assimp
+            )
+        file(COPY ${DLLS} DESTINATION "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/")
+    endif()  
 endfunction(create_project_from_src)
 
 foreach(CHAPTER ${CHAPTERS})
