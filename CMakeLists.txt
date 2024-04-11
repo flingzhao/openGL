@@ -8,6 +8,12 @@ project(openGL)
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/modules/")
 # set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/modules/")
 
+set(ASSIMP_LIB
+    basic
+    model_explode
+    model_normal_vector
+    )
+
 set(CHAPTERS 
     basic
     advanced_opengl
@@ -16,7 +22,7 @@ set(CHAPTERS
 
 set(basic basic
           model_explode
-          normal_vector
+          model_normal_vector
           )
 
 set(advanced_opengl 
@@ -85,14 +91,17 @@ function(create_project_from_src chapter demo)
         ) 
     endif()
         
-    file(COPY ${DLLS} DESTINATION "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/")
-        
+    list(FIND ASSIMP_LIB ${demo} target_index)
+    if(target_index GREATER -1)
+        message("${demo} 需要assimp library")
+        file(COPY ${DLLS} DESTINATION "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/")
+    endif()    
     add_executable(${NAME} ${SOURCE})
     target_link_libraries(${NAME} PUBLIC
-        glfw3
-        openGL32
-        assimp
-        )  
+            glfw3
+            openGL32
+            assimp
+            )  
 endfunction(create_project_from_src)
 
 foreach(CHAPTER ${CHAPTERS})
