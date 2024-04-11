@@ -47,6 +47,7 @@ set(advanced_lighting
     normal_mapping
     5.1.parallex_mapping
     5.2.parallex_mapping
+    5.3.parallex_mapping
     )
 file(GLOB DLLS "Lib/*")
 
