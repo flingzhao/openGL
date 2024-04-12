@@ -58,6 +58,7 @@ set(advanced_lighting
     5.2.parallex_mapping
     5.3.parallex_mapping
     hdr
+    bloom
     )
 file(GLOB DLLS "Lib/*")
 
