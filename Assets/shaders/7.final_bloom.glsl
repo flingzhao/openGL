@@ -34,4 +34,8 @@ void main()
     // also gamma correct while we're at it       
     result = pow(result, vec3(1.0 / gamma));
     FragColor = vec4(result, 1.0);
+
+    // for debug show blurred light
+    // ----------------------------
+    // FragColor = vec4(bloomColor, 1.0);
 }
