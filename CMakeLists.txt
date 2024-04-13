@@ -15,6 +15,7 @@ set(ASSIMP_LIB
     skybox_env_mapping
     asteroid
     asteroid_instanced
+    8.1.deferred_shading
     )
 
 set(CHAPTERS 
@@ -59,6 +60,7 @@ set(advanced_lighting
     5.3.parallex_mapping
     hdr
     bloom
+    8.1.deferred_shading
     )
 file(GLOB DLLS "Lib/*")
 
