@@ -16,6 +16,7 @@ set(ASSIMP_LIB
     asteroid
     asteroid_instanced
     8.1.deferred_shading
+    8.3.deferred_shading_comparsion
     )
 
 set(CHAPTERS 
@@ -61,6 +62,7 @@ set(advanced_lighting
     hdr
     bloom
     8.1.deferred_shading
+    8.3.deferred_shading_comparsion
     )
 file(GLOB DLLS "Lib/*")
 
