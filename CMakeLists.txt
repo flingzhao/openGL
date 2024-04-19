@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.22)
 
 set (CMAKE_C_COMPILER "D:/mingw64/w64devkit/bin/gcc.exe")
 set (CMAKE_CXX_COMPILER "D:/mingw64/w64devkit/bin/g++.exe")
-set(CMAKE_BUILD_TYPE Debug)
+set(CMAKE_BUILD_TYPE Release)
 project(openGL)
 
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/modules/")
@@ -18,6 +18,7 @@ set(ASSIMP_LIB
     8.1.deferred_shading
     8.2.deferred_shading
     8.3.deferred_shading_comparsion
+    8.4.deferred_shading_true_light_volume
     )
 
 set(CHAPTERS 
@@ -65,6 +66,7 @@ set(advanced_lighting
     8.1.deferred_shading
     8.2.deferred_shading
     8.3.deferred_shading_comparsion
+    8.4.deferred_shading_true_light_volume
     )
 file(GLOB DLLS "Lib/*")
 
