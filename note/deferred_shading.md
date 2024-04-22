@@ -25,28 +25,18 @@ for(int i = 0; i < mesh.size(); ++i)
 
 实际上，通过所谓的gbuffer，我们可以保存对应像素的三维坐标，表面材质的信息。这样就能进行光照计算了。
 
-并且根据上面的描述，可知不使用延迟渲染，光线会和每一个fragment进行计算，如[上面伪代码](#pseudocode)所示。但是在延迟渲染中，伪代码如下：
+并且根据上面的描述，可知不使用延迟渲染，光线会和每一个物体的每一个fragment进行计算，如[上面伪代码](#pseudocode)所示。但是在延迟渲染中，整个过程分为两步：
 
-```c++
-for(int i = 0; i < fragments.size(); ++i)
-{
-    geometry_data = getMeshData(fragments[i]);
-    for(int j = 0; j < lights.size(); ++j)
-    {
-        renderMesh(geometry_data, lights[j]);
-    }
-}
-```
-在8.1的代码中，延迟渲染只是减少了一部分fragmnet的计算（无法在像素中显示的fragment，应该是被深度测试抛弃的），这时候光照的计算已经从整个场景变为屏幕像素的计算了。
+    1. geometry pass. 通过 multiple render targets 渲染出场景的位置，法向量，纹理等关键信息，并制作纹理贴图。
+    2. lighting pass. 渲染一张屏幕大小的矩形，通过第一步得到的几何信息计算最后的光照结果。
+
+
+其中，在第二步lighting pass过程中，和前向渲染相比，一些无法对像素值产生影响的fragmnet就不会被计算了。这也是8.1的代码中主要进行的优化。这时候光照的计算已经从整个场景变为屏幕像素的计算了。
 
 为了进一步进行优化，在8.2中提出了光体积的概念。所谓光体积就是光源能够影响到的范围。我们知道光照的强度会随着距离的的增大而减小，当距离增加到一定程度时，我们就认为该光源无法对该距离以外的区域产生效果。这样就能进一步减少计算（原本所有像素都会和每个光源进行计算-->受影响的像素和光照进行计算)
 
 PS. 如果没有指定multisampling,pixel和fragment应该是一一对应的关系。因此一些文章说延迟渲染就是把本来在物空间（三维空间）进行光照计算放到了像空间（二维空间）进行处理。
 
-在给出代码前，先对延迟渲染的过程进行简单归纳，延迟渲染可以分为两步走：
-
-    1. geometry pass. 通过 multiple render targets 渲染出场景的位置，法向量，纹理等关键信息，并制作纹理贴图。
-    2. lighting pass. 渲染一张屏幕大小的矩形，通过第一步得到的几何信息计算最后的光照结果。
    
 ## code 
 ### 光照强度计算
@@ -61,7 +51,50 @@ float radius = (-linear + std::sqrt(linear * linear - 4 * quadratic * (constant 
 我们把这个光体积的半径通过uniform的形式传入fragment shader。然后遍历每个光源，如果当前fragment的实际位置距离光源的长度小于radius，就计算该光照对这个fragment的影响。
 
 ### 真正的光体积代码
-由于gpu并不擅长进行分支和循环，8.2的代码在实际运行中并不能有很大的性能提升。我们需要进一步的优化：在lightPass中，不渲染整个quad，而是渲染每一个光体积球
+由于gpu并不擅长进行分支和循环，8.2的代码在实际运行中并不能有很大的性能提升。我们需要进一步的优化：在lightPass中，不渲染整个quad，而是渲染每一个光体积球。在渲染过程中，如果相机进入了光体积球体中，如果开启了面剔除，将无法渲染出物体（因为要渲染的是球体，而当相机进入球体，相机看到的是球的内表面，被剔除了，而球的外表面的法线由于和光线的角度几乎同向，所以不会渲染出颜色），为了解决这一问题，需要引入模板测试。具体步骤如下
+
+    1. Render the objects as usual into the G buffer so that the depth buffer will be properly populated.
+    2. Disable writing into the depth buffer. From now on we want it to be read-only
+    3. Disable back face culling. We want the rasterizer to process all polygons of the sphere.
+    4. Set the stencil test to always succeed. What we really care about is the stencil operation.
+    5. Configure the stencil operation for the back facing polygons to increment the value in the stencil buffer when the depth test fails but to keep it unchanged when either depth test or stencil test succeed.
+    6. Configure the stencil operation for the front facing polygons to decrement the value in the stencil buffer when the depth test fails but to keep it unchanged when either depth test or stencil test succeed.
+    7. Render the light sphere.
+   
+在stencilpass中，部分代码如下：
+```c++
+    glEnable(GL_DEPTH_TEST);
+    glDisable(GL_CULL_FACE);
+    glClear(GL_STENCIL_BUFFER_BIT);
+
+    glStencilFunc(GL_ALWAYS, 0, 0);
+    // 后面三个参数分别对应没有通过模板和深度测试， 只通过模板测试但未通过深度测试，模板和深度测试都通过时采取策略
+    // 
+    glStencilOpSeparate(GL_BACK, GL_KEEP, GL_INCR_WRAP, GL_KEEP);
+    glStencilOpSeparate(GL_FRONT, GL_KEEP, GL_DECR_WRAP, GL_KEEP);
+```
+这保证了只有在光体积球内部的物体对应的模板值非零。
+
+在点光源渲染时，测试的开启如下：
+```c++
+    glStencilFunc(GL_NOTEQUAL, 0, 0xFF);
+
+    // 需要混合
+    glDisable(GL_DEPTH_TEST);
+    glEnable(GL_BLEND);
+    glBlendEquation(GL_FUNC_ADD);
+    glBlendFunc(GL_ONE, GL_ONE);
+
+    glEnable(GL_CULL_FACE);
+    glCullFace(GL_FRONT);
+
+    model.Draw(shader);    
+
+    glCullFace(GL_BACK);
+    glDisable(GL_BLEND);
+```
+
+首先指定球体中非零部分才需要渲染，注意面剔除首先剔除物体的外表面，这样内表面的法向量才会和光照方向小于90°，使得最终结果被渲染出来。
 #### extra 
 为了能顺利画额外的光照cube，把深度信息拷贝到默认的帧缓冲中。
 
