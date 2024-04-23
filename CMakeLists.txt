@@ -19,6 +19,7 @@ set(ASSIMP_LIB
     8.2.deferred_shading
     8.3.deferred_shading_comparsion
     8.4.deferred_shading_true_light_volume
+    9.ssao
     )
 
 set(CHAPTERS 
@@ -67,6 +68,7 @@ set(advanced_lighting
     8.2.deferred_shading
     8.3.deferred_shading_comparsion
     8.4.deferred_shading_true_light_volume
+    9.ssao
     )
 file(GLOB DLLS "Lib/*")
 
