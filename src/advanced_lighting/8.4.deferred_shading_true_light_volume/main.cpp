@@ -26,9 +26,9 @@ const unsigned int NR_LIGHTS = 320;
 std::vector<glm::vec3> lightPositions;
 std::vector<glm::vec3> lightColors;
 std::vector<glm::vec3> objectPositions;
-        const float constant = 1.0f; // note that we don't send this to the shader, we assume it is always 1.0 (in our case)
-        const float linear = 0.7f;
-        const float quadratic = 1.8f;
+const float constant = 1.0f; // note that we don't send this to the shader, we assume it is always 1.0 (in our case)
+const float linear = 0.7f;
+const float quadratic = 1.8f;
 
 float calcPointLightSphere(const unsigned int id);
 
