@@ -124,6 +124,8 @@ int main()
 	// Model YouyiModel(std::string("../../../Assets/models/youyi/Youyi.pmx"));
 
     Model nano(std::string("../../../Assets/models/nanosuit_reflection/nanosuit.obj"));
+    Model light_sphere("../../../Assets/models/sphere.obj");
+    Shader null_shader("../../../Assets/shaders/8.4.null_shader.glsl");
 #pragma endregion
 	double initT = glfwGetTime();
 
@@ -140,17 +142,29 @@ int main()
 
         ourShader.Use();
 
-        // view/projection transformations
-        glm::mat4 projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
-        // auto projection = getPerspectiveMatrix(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
+        // // view/projection transformations
+        // glm::mat4 projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
+        // // auto projection = getPerspectiveMatrix(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
+        // glm::mat4 view = camera.GetViewMatrix();
+        // ourShader.SetMat4("projection", projection);
+        // ourShader.SetMat4("view", view);
+        // // render the loaded model
+        // glm::mat4 model = glm::mat4(1.0f);
+        // model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f)); // translate it down so it's at the center of the scene
+        // model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));	// it's a bit too big for our scene, so scale it down
+        // ourShader.SetMat4("model", model);
+		// nano.Draw(ourShader);
+
+		null_shader.Use();
+		glm::mat4 projection = glm::perspective(glm::radians(45.f), (float)800 / (float)600, 0.1f, 100.0f);
         glm::mat4 view = camera.GetViewMatrix();
-        ourShader.SetMat4("projection", projection);
-        ourShader.SetMat4("view", view);
-        // render the loaded model
-        glm::mat4 model = glm::mat4(1.0f);
-        model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f)); // translate it down so it's at the center of the scene
-        model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));	// it's a bit too big for our scene, so scale it down
-        ourShader.SetMat4("model", model);
+        glm::mat4 model_mat = glm::mat4(1.0f);
+
+        null_shader.SetMat4("view", view);
+        null_shader.SetMat4("projection", projection);
+        null_shader.SetMat4("model", model_mat);
+        light_sphere.Draw(null_shader);
+	
 #pragma region sixiwanzi
 
 		
@@ -194,7 +208,7 @@ int main()
 #pragma endregion
 
 
-		nano.Draw(ourShader);
+
 	    glfwSwapBuffers(window);
 	    glfwPollEvents();      
 	}	
